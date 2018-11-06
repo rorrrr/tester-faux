@@ -11,6 +11,8 @@
   "dependencies": {
     "expo": "^31.0.2",
     "fela": "^6.2.3",
+    "handranker": "^1.0.5",
+    "pokersolver": "^2.1.2",
     "react": "16.5.0",
     "react-dom": "^16.6.0",
     "react-fela": "^8.0.4",

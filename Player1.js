@@ -1,28 +1,141 @@
-import React, { Component } from 'react'
-import { StyleSheet, Text, View } from 'react-native';
+import React, { Component } from "react";
+import { StyleSheet, Text, View, Button } from "react-native";
+import { connect } from "react-redux";
+import { setPlayer1Deck, setActiveDeck } from "./state/actions";
+import Ranker from "handranker";
 
 class Player1 extends Component {
+  putInHand1() {
+    let drawnCards = this.props.activeDeck
+      .sort(() => 0.5 - Math.random())
+      .slice(0, 7);
+    this.props.setActiveDeck(
+      this.props.activeDeck.filter(card => !drawnCards.includes(card))
+    );
+    this.props.setPlayer1Deck(drawnCards);
+    // var board = ["Ts", "9s", "8s", "3h", "2h"];
+    // var hand1 = ;
+    // var hands = [hand1];
+    // console.log("Rankings:", Ranker.orderHands([{ id: 1, cards: ["As", "Kc", "Qc", "Jc"] }], this.props.board, Ranker.OMAHA_HI)[0][0].ranking);
+  }
+
   render() {
     return (
       <View style={styles.container}>
-      <Text style={styles.text}> Player1 </Text>
+        <Text style={styles.text}> Player1 </Text>
+        {this.props.player1Deck.length == 0 && (
+          <Button
+            onPress={() => {
+              this.putInHand1();
+            }}
+            title="draw p1"
+            color="white"
+            accessibilityLabel="Learn more about this purple button"
+          />
+        )}
+
+        {this.props.player1Deck.length > 0 && (
+          <View style={styles.container}>
+            <Text style={styles.text}>
+              {" "}
+              Top: {this.props.player1Deck[0][0]}
+            </Text>
+            <Text style={styles.text}>
+              {" "}
+              Middle: {this.props.player1Deck[0][1]},{
+                this.props.player1Deck[0][2]
+              }
+            </Text>
+            <Text style={styles.text}>
+              {" "}
+              Bottom: {this.props.player1Deck[0][3]},{
+                this.props.player1Deck[0][4]
+              },{this.props.player1Deck[0][5]},{this.props.player1Deck[0][6]}
+            </Text>
+          </View>
+        )}
+        {this.props.board.length > 0 && (
+          <View style={styles.container}>
+            <Text style={styles.text}>
+              Top:
+              {
+                Ranker.orderHands(
+                  [{ id: 1, cards: [this.props.player1Deck[0][0]] }],
+                  this.props.board,
+                  Ranker
+                )[0][0].description
+              }
+            </Text>
+            <Text style={styles.text}>
+              MidHand:
+              {
+                Ranker.orderHands(
+                  [
+                    {
+                      id: 1,
+                      cards: [
+                        this.props.player1Deck[0][1],
+                        this.props.player1Deck[0][2]
+                      ]
+                    }
+                  ],
+                  this.props.board,
+                  Ranker
+                )[0][0].description
+              }
+            </Text>
+            <Text style={styles.text}>
+              BotHand:{" "}
+              {
+                Ranker.orderHands(
+                  [
+                    {
+                      id: 1,
+                      cards: [
+                        this.props.player1Deck[0][3],
+                        this.props.player1Deck[0][4],
+                        this.props.player1Deck[0][5],
+                        this.props.player1Deck[0][6]
+                      ]
+                    }
+                  ],
+                  this.props.board,
+                  Ranker.OMAHA_HI
+                )[0][0].description
+              }
+            </Text>
+          </View>
+        )}
       </View>
-    )
+    );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'blue',
-    width: '50%',
-    height: '90%',
-    alignItems: 'flex-start',
+    backgroundColor: "blue",
+    alignItems: "flex-start",
+    height: "100%"
   },
   text: {
-    fontSize: 40,
+    fontSize: 40
   }
 });
 
+const mapStateToProps = store => {
+  return {
+    aces: store.aces,
+    activeDeck: store.activeDeck,
+    player1Deck: store.player1Deck,
+    board: store.board
+  };
+};
 
-export default Player1
+const mapDispatchToProps = dispatch => ({
+  setAces: aces => dispatch(setAces(aces)),
+  setPlayer1Deck: player1Deck => dispatch(setPlayer1Deck(player1Deck)),
+  setActiveDeck: activeDeck => dispatch(setActiveDeck(activeDeck))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Player1);
