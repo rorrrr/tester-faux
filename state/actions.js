@@ -11,6 +11,12 @@ export function resetDeck1() {
   };
 }
 
+export function resetDeck() {
+  return {
+    type: "resetDeck"
+  };
+}
+
 export function resetDeck2() {
   return {
     type: "resetDeck2"
@@ -22,6 +28,17 @@ export function resetBoard() {
     type: "resetBoard"
   };
 }
+export function addPlayer1Tally() {
+  return {
+    type: "addPlayer1Tally"
+  };
+}
+
+export function addPlayer2Tally() {
+  return {
+    type: "addPlayer2Tally"
+  };
+}
 
 export function setActiveDeck(activeDeck) {
   return {
@@ -30,17 +47,17 @@ export function setActiveDeck(activeDeck) {
   };
 }
 
-export function addPlayer1(player1Score) {
+export function addPlayer1(score) {
   return {
     type: "addPlayer1",
-    player1Score: player1Score
+    score: score
   };
 }
 
-export function addPlayer2(player2Score) {
+export function addPlayer2(score) {
   return {
     type: "addPlayer2",
-    player2Score: player2Score
+    score: score
   };
 }
 

@@ -9,14 +9,18 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "cardsJS": "^1.1.1",
     "expo": "^31.0.2",
     "fela": "^6.2.3",
     "handranker": "^1.0.5",
     "pokersolver": "^2.1.2",
     "react": "16.5.0",
+    "react-absolute-grid": "^3.0.1",
     "react-dom": "^16.6.0",
     "react-fela": "^8.0.4",
     "react-native": "https://github.com/expo/react-native/archive/sdk-31.0.0.tar.gz",
+    "react-native-sortable-grid": "^2.0.0",
+    "react-native-sortable-listview": "^0.2.8",
     "redux": "^4.0.1"
   },
   "devDependencies": {

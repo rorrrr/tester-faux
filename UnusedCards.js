@@ -1,20 +1,27 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View, Button } from "react-native";
 import { connect } from "react-redux";
-import { setAces, resetDeck1, resetDeck2, resetBoard } from "./state/actions";
+import {
+  setAces,
+  resetDeck1,
+  resetDeck2,
+  resetBoard,
+  resetDeck
+} from "./state/actions";
 
 class UnusedCards extends Component {
   reset() {
     this.props.resetBoard();
     this.props.resetDeck1();
     this.props.resetDeck2();
+    this.props.resetDeck();
   }
 
   render() {
     return (
       <View style={styles.container}>
-        {/*  <Text style={styles.text}> Cards Left: </Text>
-        <Text style={styles.text}> {this.props.activeDeck.length} </Text>*/}
+        <Text style={styles.text}> Cards Left: </Text>
+        <Text style={styles.text}> {this.props.activeDeck.length} </Text>
         <Text style={styles.text}> Player 1 Score: </Text>
         <Text style={styles.text}> {this.props.player1Score} </Text>
         <Text style={styles.text}> Player 2 Score: </Text>
@@ -55,6 +62,7 @@ const mapStateToProps = store => {
 const mapDispatchToProps = dispatch => ({
   setAces: aces => dispatch(setAces(aces)),
   resetBoard: board => dispatch(resetBoard()),
+  resetDeck: deck => dispatch(resetDeck(deck)),
   resetDeck1: deck => dispatch(resetDeck1()),
   resetDeck2: deck => dispatch(resetDeck2())
 });
